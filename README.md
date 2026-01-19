@@ -4,8 +4,10 @@ a tic tac toe :D
 **boolean game**: used in the while loop - game is changed to false if user does not desire to replay the game and exits the loop
 
 **int option**: user input of whether they want Player vs Player or Player vs AI
+
 **String otherPlayer**: On the other player’s turn, this string is printed: if P1 is against the AI, the value is “Computer”
-^ the above are interchangeable - later in my code I put (otherPlayer == “Computer”) in the if statement instead of (option == 2). the latter is for printing and the former was used to get user input
+
+_^ the above are interchangeable - later in my code I put (otherPlayer == “Computer”) in the if statement instead of (option == 2). the latter is for printing and the former was used to get user input_
 
 **boolean AITurn**: whether or not it’s the AI’s turn - every turn, checks whether to let player input or tell AI to input
 

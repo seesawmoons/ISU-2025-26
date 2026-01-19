@@ -104,7 +104,8 @@ public class Main {
 
                 else { // COMPUTER TURN:
                     boolean turn = false;
-                    if (i == 4 && board[4] == 'O') {
+                    if (i == 4 && board[4] == 'O') { 
+                        // A certain strategy counter where Player 1 can trap the AI with 2 corners
                         if (board[0] == 'X' && board[8] == 'X') {
                             board[3] = 'O';
                             turn = true;
@@ -113,19 +114,20 @@ public class Main {
                             turn = true;
                         }
                     }
-                    if (i == 1) { // Turn 1
+                    if (i == 1) { // Turn 1 - start with corner
                         board[0] = currentTurn;
                     } else if (i == 2) {
                         if (board[4] == '5')
-                            board[4] = 'O';
+                            board[4] = 'O'; // Default to middle 
                         else
                             board[0] = 'O';
-                    } else if (i == 3) { // Turn 2
+                    } else if (i == 3) { // Turn 2 - take another corner and may be able to trap Player 1
                         if (board[8] == '9')
                             board[8] = currentTurn;
                         else
                             board[2] = currentTurn;
-                    } else if (!turn) {
+                    } else if (!turn) { // the rest of the game: mostly defensive playing
+                        // Checks for 2-in-a-rows
                         char checkFor = currentTurn;
                         for (int repeatTwice = 0; repeatTwice < 2; repeatTwice++) {
                             for (int repeat8 = 0; repeat8 < 8; repeat8++) {
@@ -148,6 +150,7 @@ public class Main {
                                 if (turn)
                                     repeat8 = 8;
                             }
+                            // Starts checking for the opponent's 2-in-a-rows:
                             if (checkFor == 'X')
                                 checkFor = 'O';
                             else
@@ -176,16 +179,16 @@ public class Main {
                             }
                         }
                         if (board[7] != currentTurn && board[7] != '8') {
-                            // 1 - Belongs to the other player!!
+                            // 7 - Belongs to the other player!!
                             if (board[3] != currentTurn && board[3] != '4') {
-                                // 1 and 3 belong to other player
+                                // 7 and 3 belong to other player...
                                 if (board[6] == '7' && !turn) {
                                     board[6] = currentTurn;
                                     turn = true;
                                 }
                             }
                             if (board[5] != currentTurn && board[5] != '6') {
-                                // 1 and 5 belong to other player
+                                // 7 and 5 belong to other player
                                 if (board[8] == '9' && !turn) {
                                     board[8] = currentTurn;
                                     turn = true;
@@ -203,7 +206,6 @@ public class Main {
                 }
 
                 victory = 0; // 0 = tie, 1 = p1 win, 2 = p2 win
-                // Change i to 10 on the case of victory
                 // Checks if game's been won
 
                 // Check original array to see which have been replaced with the current
@@ -239,6 +241,7 @@ public class Main {
                     }
                 }
 
+                // Prints board again
                 if (victory == -1) {
                     System.out.println("|---|---|---|");
                     arrayCounter = 0;
@@ -290,6 +293,7 @@ public class Main {
                 System.out.println();
                 System.out.println("You tied!");
             }
+            // Otherwise, displays victory message
             else if (victory == 1) { 
                 System.out.println("Congratulations, Player 1!");
             }
@@ -297,11 +301,13 @@ public class Main {
                 System.out.println("Congratulations, " + otherPlayer + "!");
             }
 
+            // Asks for replay
             System.out.println("To replay, type \"replay\".");
             sc.nextLine();
             String replay = sc.nextLine().toLowerCase();
             game = replay.equals("replay");
         }
+        // Closing message...
         System.out.println("See you next time!");
         sc.close();
     }
